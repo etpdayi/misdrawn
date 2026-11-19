@@ -1,0 +1,202 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>misdrawn</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0D12;--pn:#151922;--ln:#292F3B;--ink:#F4F3EF;--bl:#2457D6;--or:#FF7138;--ok:#2FBF71;--bad:#E5322D;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:inherit;margin:0}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font:500 15px/1.4 'Space Grotesk',system-ui,sans-serif;min-height:100vh;padding-bottom:34px}
+.an,.btn,h2{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase}
+.mono{font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#98A0AE}
+header{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;border-bottom:1px solid var(--ln);padding:14px 20px}
+.logo{font-size:38px;line-height:1}.logo b{color:var(--or)}
+#tm{font-size:46px;line-height:1;text-align:right;min-width:70px;justify-self:end}
+#lab{text-align:center}
+main{max-width:1280px;margin:auto;padding:20px}
+.btn{border:0;background:var(--ink);color:var(--bg);padding:12px 20px;font-size:18px;cursor:pointer;letter-spacing:.02em}
+.btn.bl{background:var(--bl);color:#fff}.btn.or{background:var(--or)}.btn.gh{background:none;color:var(--ink);border:1px solid var(--ln)}.btn.bd{background:var(--bad);color:#fff}
+.btn:disabled,.tb:disabled{opacity:.4;cursor:not-allowed}
+.pn{background:var(--pn);border:1px solid var(--ln);padding:14px}
+.lob{display:grid;grid-template-columns:1.5fr 1fr;gap:20px}
+.hero{background:var(--bl);position:relative;min-height:520px;padding:28px;overflow:hidden}
+.big{font-size:clamp(70px,12vw,170px);line-height:.88}.big i{font-style:normal;color:var(--or);margin-left:.5em;display:inline-block;transform:rotate(-3deg)}
+.start{position:absolute;right:28px;bottom:28px;width:150px;height:150px;border-radius:50%;background:var(--or);color:var(--bg);border:0;font-size:24px;line-height:1.05;cursor:pointer}
+.start:hover{transform:rotate(-6deg) scale(1.05)}
+.circ{position:absolute;right:-90px;top:-90px;width:330px;height:330px;border:1px solid #0B0D12;border-radius:50%}
+ul{list-style:none;padding:0}li.pl{display:grid;grid-template-columns:34px 1fr auto;padding:10px 0;border-bottom:1px solid var(--ln);align-items:center}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#555;margin-right:6px}.dot.ok{background:var(--ok)}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--ln)}
+.row button{background:none;border:1px solid var(--ln);color:var(--ink);width:30px;height:30px;cursor:pointer;font-size:16px}
+input{background:var(--bg);border:1px solid var(--ln);color:var(--ink);padding:10px;font:inherit;width:100%}
+.two{display:grid;grid-template-columns:1.2fr 1fr;gap:20px}
+canvas.cv{width:100%;aspect-ratio:8/5;background:#fff;display:block;touch-action:none;cursor:crosshair}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.sw{width:30px;height:30px;border-radius:50%;border:2px solid var(--ln);cursor:pointer}.sw.k{background:#0B0D12;border-color:#555}.sw.r{background:#E5322D}.sw.b{background:#2457D6}
+.sw.on,.wd.on,.tb.on{outline:2px solid var(--or);outline-offset:2px}
+.wd{width:34px;height:30px;background:none;border:1px solid var(--ln);display:grid;place-items:center;cursor:pointer}.wd i{background:#fff;border-radius:50%;display:block}
+.tb{background:none;border:1px solid var(--ln);color:var(--ink);padding:6px 10px;font:inherit;cursor:pointer}
+.sep{width:1px;height:24px;background:var(--ln)}
+.word{font-size:clamp(44px,8vw,110px);line-height:.95;color:var(--or)}
+.cams{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.cam{position:relative;border:1px solid var(--ln);background:var(--pn);padding:6px}
+.cam .tg{position:absolute;left:12px;top:12px;background:rgba(11,13,18,.85);padding:2px 6px}.rec{color:var(--bad)}
+.cam .nm{display:flex;justify-content:space-between;padding-top:6px}
+.stamp{position:absolute;right:12px;bottom:44px;font-family:Anton,Impact,sans-serif;font-size:30px;padding:2px 10px;border:3px solid;transform:rotate(-6deg) scale(1.6);opacity:0;transition:.25s;background:rgba(11,13,18,.9)}
+.stamp.s{opacity:1;transform:rotate(-6deg) scale(1)}.stamp.y{color:var(--ok);border-color:var(--ok)}.stamp.n{color:var(--bad);border-color:var(--bad)}
+.gs{opacity:0;transition:.3s}.gs.s{opacity:1}
+.pod{display:flex;align-items:flex-end;gap:12px;margin:30px 0;justify-content:center}
+.pod div{flex:1;max-width:260px;padding:14px;display:flex;flex-direction:column;justify-content:flex-end}
+.tickr{position:fixed;left:0;right:0;bottom:0;background:var(--or);color:var(--bg);overflow:hidden;white-space:nowrap;border-top:1px solid #000;height:30px;padding-bottom:env(safe-area-inset-bottom,0px)}
+.tickr span{display:inline-block;padding-left:100%;animation:mq 30s linear infinite;font:400 16px/30px Anton,Impact,sans-serif;letter-spacing:.08em}
+@keyframes mq{to{transform:translateX(-100%)}}
+.note{border-left:3px solid var(--or);padding:6px 10px;margin:10px 0;color:#98A0AE;font-size:13px}
+@media(max-width:860px){.lob,.two{grid-template-columns:1fr}.hero{min-height:420px}header{grid-template-columns:1fr auto}#lab{display:none}}
+.btn{position:relative;padding:14px 24px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));letter-spacing:.05em;transition:transform .12s,background .12s}
+.btn:hover:not(:disabled){transform:translate(-2px,-2px);background:var(--or);color:#0B0D12}.btn.or:hover:not(:disabled){background:var(--ink)}.btn.gh{clip-path:none}
+.btn.ar::after{content:'';display:inline-block;width:9px;height:9px;border:solid currentColor;border-width:3px 3px 0 0;transform:rotate(45deg);margin-left:12px;vertical-align:1px}
+.tb{border-radius:0;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px}.sw{border-radius:0;width:28px;height:28px}.lk{width:10px;height:13px;margin-right:6px;vertical-align:-2px;fill:currentColor}
+.tag{background:var(--or);color:#0B0D12;font:400 11px Anton,Impact,sans-serif;text-transform:uppercase;padding:1px 6px;margin-left:6px}
+.home{display:grid;grid-template-columns:1.7fr 1fr;border:1px solid var(--ln)}.hh{background:var(--bl);position:relative;min-height:600px;overflow:hidden;padding:20px}
+.hh .bar{position:absolute;bottom:0}.letters{position:absolute;left:18px;bottom:-4px;display:flex;align-items:flex-end;font-size:clamp(130px,20vw,290px);line-height:.8}.letters b{font-weight:400}
+.dot2{position:absolute;right:22%;top:18%;width:26px;height:26px;border-radius:50%;background:#0B0D12}.hh .circ{left:12%;right:auto;top:8%;width:62%;height:auto;aspect-ratio:1}
+.hs{display:grid;grid-template-rows:auto 1fr}.hs .pn{border:0;border-bottom:1px solid var(--ln);padding:22px;display:flex;flex-direction:column;gap:12px}.hs .mono{margin-bottom:2px}
+.vc{position:relative;overflow:hidden;background:var(--pn);border:1px solid var(--ln);height:300px}.vct{position:absolute;left:24px;top:8px;font-size:clamp(90px,15vw,200px);line-height:.88;color:var(--ink)}
+.vsq{position:absolute;left:40%;top:26px;width:36%;height:240px;background:var(--ink);transform:rotate(-4deg);mix-blend-mode:difference}.vlab{position:absolute;right:16px;top:12px}
+.lob2{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:16px}.lob2 .btn{margin-top:12px}
+@media(max-width:860px){.home,.lob2{grid-template-columns:1fr}.hh{min-height:460px}.vsq{left:48%}}
+.cta{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--or);color:#0B0D12;border:0;border-bottom:1px solid #0B0D12;padding:30px 22px;font-size:58px;line-height:1;cursor:pointer;text-align:left;transition:background .12s,color .12s}
+.cta:hover{background:var(--ink)}.cta .an{font-size:58px}.arw{width:26px;height:26px;border:solid currentColor;border-width:7px 7px 0 0;transform:rotate(45deg);flex:none;margin-right:10px}
+input::placeholder{color:#98A0AE;opacity:.4}
+.wm{position:absolute;left:22px;bottom:64px;font-size:clamp(80px,15vw,230px);line-height:.84;display:flex;flex-direction:column;color:var(--ink)}.wm .d2{color:#0B0D12;margin-left:.3em}.wmsub{position:absolute;left:24px;bottom:26px;color:var(--ink)}
+.cta{padding:16px 22px}.cta .an{font-size:30px}.arw{width:14px;height:14px;border-width:4px 4px 0 0}
+.hs{display:flex;flex-direction:column}.cta{align-self:flex-start;margin:18px 22px;padding:10px 16px;gap:18px;border:0}.cta .an{font-size:22px}.arw{width:10px;height:10px;border-width:3px 3px 0 0;margin-right:4px}
+.wm{bottom:86px;z-index:3}.wm span:first-child{color:var(--ink)}.wmsub{bottom:48px;z-index:3;color:#0B0D12}
+.bld{position:absolute;left:0;right:0;bottom:30px;width:100%;height:46%;z-index:1}.hh .bar,.hh .circ,.hh .dot2{z-index:0}
+.hm{position:absolute;left:0;right:0;bottom:0;height:30px;border-top:1px solid #0B0D12;overflow:hidden;white-space:nowrap;z-index:4;background:var(--bl)}
+.hm span{display:inline-block;padding-left:100%;animation:mq 45s linear infinite;font:400 15px/30px Anton,Impact,sans-serif;color:#0B0D12;letter-spacing:.06em;text-transform:uppercase}
+.vt{position:absolute;right:0;top:0;bottom:30px;width:54px;border-left:1px solid #0B0D12;writing-mode:vertical-rl;transform:rotate(180deg);font-size:30px;line-height:54px;color:#0B0D12;text-align:center;letter-spacing:.04em;z-index:4;background:var(--bl);padding:10px 0}
+.idx{position:absolute;right:70px;top:16px;color:#0B0D12;z-index:4}
+.how{display:grid;grid-template-columns:1fr 2fr;border:1px solid var(--ln);border-top:0}.hw{padding:22px;border-right:1px solid var(--ln)}.hw p{margin-top:10px;color:#C4C8D0}
+.st4{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr)}.st4 li{padding:22px;border-right:1px solid var(--ln)}.st4 li:last-child{border:0}.st4 b{color:var(--or);font-size:34px;display:block;font-weight:400}.st4 span{font-size:26px;display:block}.st4 p{color:#C4C8D0;margin-top:6px;font-size:14px}
+@media(max-width:860px){.how{grid-template-columns:1fr}.st4{grid-template-columns:1fr 1fr}.hw{border-right:0;border-bottom:1px solid var(--ln)}}
+</style></head><body>
+<header><div class="logo an">misdrawn<b>.</b></div><div id="lab" class="mono"></div><div><div id="num" class="mono" style="text-align:right"></div><div id="tm" class="an"></div></div></header>
+<main id="app"></main>
+<div class="tickr"><span>MISDRAWN ● ANLAT ● ÇİZ ● YANLIŞ ANLA ● SİLGİ YOK ● GERİ AL YOK ● CAM-01 REC ● FAUL DÜDÜĞÜ ● MISDRAWN ● ANLAT ● ÇİZ ● YANLIŞ ANLA ● SİLGİ YOK ● GERİ AL YOK ●</span></div>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script>
+/* GitHub Pages için çok oyunculu katman: Claude'un "room" özelliği yoksa PeerJS (WebRTC) ile aynı arayüzü sağlar. Kurucu = merkez. */
+if(!window.claude){window.claude={use:async k=>k=='room'?{join:(name)=>joinRoom(name,!!window.__misHost)}:null}}
+function joinRoom(name,isHost){return new Promise((res,rej)=>{
+ const P=new Peer(isHost?'misdrawn-'+name:undefined);let state={},myId,conns=[],cbs=[],hc=null,done=false;
+ const emit=()=>cbs.forEach(f=>f()),ok=a=>{if(!done){done=true;res(a)}},fail=e=>{if(!done){done=true;rej(e)}};
+ const apply=(id,patch)=>{const p={...(state[id]||{})};for(const k in patch){patch[k]===null?delete p[k]:p[k]=patch[k]}state[id]=p;emit()};
+ const bc=()=>conns.forEach(c=>c.open&&c.send({t:'s',state}));
+ const api={peers:()=>Object.entries(state).map(([peer,presence])=>({peer,presence,sameTab:peer==myId,isMe:peer==myId})),
+  presence:async patch=>{apply(myId,patch);if(isHost)bc();else if(hc&&hc.open)hc.send({t:'p',patch})},
+  onPeers:f=>{cbs.push(f)},leave:()=>{try{P.destroy()}catch(e){}}};
+ P.on('error',fail);setTimeout(()=>fail(new Error('timeout')),9000);
+ P.on('open',id=>{myId=id;
+  if(isHost){state[myId]={};P.on('connection',c=>{conns.push(c);c.on('data',m=>{if(m.t=='p'){apply(c.peer,m.patch);bc()}});c.on('close',()=>{conns=conns.filter(x=>x!=c);delete state[c.peer];emit();bc()})});ok(api)}
+  else{hc=P.connect('misdrawn-'+name,{reliable:true});hc.on('open',()=>{hc.on('data',m=>{if(m.t=='s'){state=m.state;emit()}});ok(api)});hc.on('close',()=>{state={};emit()})}})})}
+</script>
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)],app=$('#app');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const CATS={S:'Spor / Oyun',M:'Meslek / Figür',T:'Teknoloji / Bilim',D:'Doğa olayı',I:'Sembol',Y:'Yemek',H:'Hayvan',V:'Taşıt',E:'Eşya',B:'Bitki',P:'Yapı'};
+const SRC='S:Golf Sopası,Kayak Takımı,Sörf Tahtası,Dalış Tüpü,Kayak,Boks Eldiveni,Halter,Trapez,Jimnastik Çemberi,Atlama İpi,Okçuluk,Kılıç,Kalkan,Zıpkın,Boomerang,Satranç Tahtası,Dama Taşı,Zar,Oyun Kartı,Yoyo,Kaykay,Paten,Rulo Paten,Paraşüt Atlama,Bungee Atlama,Dağ Tırmanışı,Rafting Küreği,Kano Küreği,Sırık Atlama,Çekiç Atma,Yüzme Gözlüğü,Palet,Şnorkel,Fener Balonu,Uçurtma,Halat Çekme,Güreş,Sumo,Eskrim,Aikido,Trambolin,Paralel Bar,Kürek Çekme,Bisiklet Yarışı,Maraton|M:Astronot,Denizci,Korsan,Şef,Palyaço,Sihirbaz,Sirk Cambazı,Fotoğrafçı,Ressam,Heykeltraş,Mimar,İnşaat İşçisi,Dalgıç,Dağcı,Paraşütçü,İtfaiyeci,Polis,Dedektif,Ninja,Şövalye,Viking,Gladyatör,Samuray,Kahraman,Süper Kahraman,Robot,Uzaylı,Cadı,Büyücü,Peri,Dev,Cüce,Kovboy,Araştırmacı,Müzisyen,Balet Dansçısı,Pilot,Kaptan,Mühendis|T:Bilgisayar,Klavye,Mouse,Monitör,Kulaklık Seti,Oyun Kolu,VR Gözlük,Drone,Robot Kol,3D Yazıcı,Güneş Paneli,Rüzgar Türbini,Nükleer Santral,Anten,Uydu,Teleskop,Mikroskop,Kimya Seti,DNA Zinciri,Atom Modeli,Pilli Araba,Uzay Roketi,Ay Modülü,Mars Gezgini,Uzay Teleskopu,Lazer,Projeksiyon,Hologram,Radar,Sonar,Deney Tüpü,Beher,Balon Erlen,Bunsen Beki,Cetvel,Telefon|D:Gökkuşağı,Kasırga,Hortum,Yıldırım,Şimşek,Bulut,Fırtına Bulutu,Kar Fırtınası,Çığ,Tsunami,Kuzey Işığı,Güneş Tutulması,Ay Tutulması,Kuyruklu Yıldız,Meteor Yağmuru,Güneş,Ay,Yıldız,Bulut Kümesi|I:Neon Tabela,Trafik Işığı,Yön Levhası,Trafik Konisi,Yol Çizgisi,Soru İşareti,Ünlem İşareti,Kalp,Yıldız Şekli,Ok,Spiral,Labirent Sembolü,Sonsuzluk,Ying Yang,Üçgen|Y:Pizza,Muz,Dondurma,Elma,Hamburger,Simit,Karpuz,Çilek,Lahmacun,Baklava,Pasta,Patates,Havuç|H:Koyun,Penguen,Balina,Tavşan,Kedi,Fil,Balık,Zürafa,Aslan,Kaplan,Maymun,Timsah,Kartal,Yılan,Kurbağa,Ahtapot|V:Helikopter,Bisiklet,Roket,Araba,Kamyon,Gemi,Tren|E:Gitar,Şemsiye,Saat|B:Kaktüs,Ağaç,Çiçek|P:Ev,Kale';
+const W=[];{const seen=new Set();SRC.split('|').forEach(b=>b.slice(2).split(',').forEach(w=>{if(!seen.has(w)){seen.add(w);W.push({w,c:CATS[b[0]]})}}))}
+const COL={k:'#0B0D12',r:'#E5322D',b:'#2457D6'},CH='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const LK='<svg class="lk" viewBox="0 0 12 14"><rect y="6" width="12" height="8"/><path d="M3 6V4a3 3 0 016 0v2" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+const mm=s=>String(Math.max(0,Math.ceil(s))).padStart(2,'0'),now=()=>performance.now();
+const norm=s=>(s||'').toLocaleLowerCase('tr').replace(/ı/g,'i').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ö/g,'o').replace(/ç/g,'c').replace(/[^a-z0-9]/g,'');
+function lev(a,b){const d=[...Array(a.length+1)].map((_,i)=>[i]);for(let j=1;j<=b.length;j++)d[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]!=b[j-1]));return d[a.length][b.length]}
+const isOk=(g,w)=>norm(g)&&lev(norm(g),norm(w))<=1;
+// durum
+let cfg=[40,60,20],nr=null,G=null,lastG=null,seenQ=-1,ph='home',t0=0,me={n:'',j:0},room={code:''},tool={c:'k',w:4,er:false},locked=false,cur=[],myRef=[],myDraw={},myGuess={},rv={},dirty=false,lastPub=0,joinedAt=0;
+const peers=()=>nr?nr.peers():[],byId=id=>peers().find(p=>p.peer==id),myId=()=>peers().find(p=>p.sameTab)?.peer,hostPeer=()=>peers().find(p=>p.presence.h),iAmHost=()=>!!hostPeer()?.sameTab;
+const pres=o=>{if(nr)nr.presence(o).catch(()=>{})},word=id=>W[G.wi[G.o.indexOf(id)]];
+// çizim + kodlama
+const dur=s=>s.reduce((m,x)=>Math.max(m,x.pts.at(-1)[2]),0);
+function draw(cv,ss,T=1e9){const x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,640,400);x.lineCap=x.lineJoin='round';for(const s of ss){x.strokeStyle=s.c=='e'?'#fff':COL[s.c]||'#000';x.lineWidth=s.c=='e'?22:s.w;x.beginPath();let n=0;for(const p of s.pts){if(p[2]>T)break;n?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]);n++}if(n==1)x.lineTo(s.pts[0][0]+.1,s.pts[0][1]);x.stroke()}}
+function enc(ss){const f=m=>ss.map(s=>{const o=[];for(const p of s.pts){const l=o.at(-1);if(!l||Math.hypot(p[0]-l[0],p[1]-l[1])>=m)o.push(p)}if(o.at(-1)!==s.pts.at(-1))o.push(s.pts.at(-1));return s.c+(s.w>6?1:0)+o.map(p=>[p[0]/2,p[1]/2,Math.min(1295,p[2]/100)].map(n=>Math.round(n).toString(36).padStart(2,'0')).join('')).join('')}).join('.');let m=0,r;do{r=f(m);m+=5}while(r.length>2200&&m<200);return r}
+const dec=s=>s?s.split('.').map(t=>({c:t[0],w:t[1]=='1'?10:4,pts:(t.slice(2).match(/.{6}/g)||[]).map(x=>[parseInt(x.slice(0,2),36)*2,parseInt(x.slice(2,4),36)*2,parseInt(x.slice(4),36)*100])})).filter(s=>s.pts.length):[];
+function bind(cv,arr,on){let c=null;const pos=e=>{const r=cv.getBoundingClientRect();return[Math.round((e.clientX-r.left)*640/r.width),Math.round((e.clientY-r.top)*400/r.height),Math.round(now()-t0)]};
+ cv.onpointerdown=e=>{if(locked)return;cv.setPointerCapture(e.pointerId);c={c:tool.er?'e':tool.c,w:tool.w,pts:[pos(e)]};arr.push(c);on()};
+ cv.onpointermove=e=>{if(!c)return;const p=pos(e),l=c.pts.at(-1);if(Math.hypot(p[0]-l[0],p[1]-l[1])<4)return;c.pts.push(p);on()};cv.onpointerup=cv.onpointercancel=()=>{c=null}}
+const mk=()=>{const cv=$('#cv');draw(cv,cur);bind(cv,cur,()=>{draw(cv,cur);dirty=true})};
+const tl=ref=>`<div class="tools"><button data-c="k" class="sw k on"></button><button data-c="r" class="sw r"></button><button data-c="b" class="sw b"></button><span class="sep"></span><button data-w="4" class="wd on"><i style="width:6px;height:6px"></i></button><button data-w="10" class="wd"><i style="width:14px;height:14px"></i></button><span class="sep"></span>${ref?'<button class="tb" data-er>Silgi</button><button class="tb" data-undo>Geri al</button>':'<button class="tb" disabled>'+LK+'Silgi yok</button><button class="tb" disabled>'+LK+'Geri al yok</button>'}</div>`;
+function sync(){$$('.sw').forEach(x=>x.classList.toggle('on',x.dataset.c==tool.c&&!tool.er));$$('.wd').forEach(x=>x.classList.toggle('on',+x.dataset.w==tool.w));$$('[data-er]').forEach(x=>x.classList.toggle('on',tool.er))}
+const head=(l,n)=>{$('#lab').textContent=l;$('#num').textContent=n;$('#tm').textContent=''};
+const list=rows=>{const st=$('#st');if(st)st.innerHTML=rows.map((r,i)=>`<li class="pl"><span class="mono">0${i+1}</span><span>${esc(r[0])}</span><span class="mono"><i class="dot ${r[1]?'ok':''}"></i>${r[2]}</span></li>`).join('')};
+// ekranlar
+function home(){ph='home';head('Giriş','00 / 06');
+ app.innerHTML=`<div class="home"><section class="hh"><i class="circ"></i><i class="dot2"></i><i class="bar" style="left:44%;width:6%;height:55%;top:0;bottom:auto;background:var(--or)"></i><i class="bar" style="left:58%;width:3%;height:42%;top:0;bottom:auto;background:#0B0D12"></i><i class="bar" style="left:73%;width:7%;height:36%;top:0;bottom:auto;background:var(--or)"></i><svg class="bld" viewBox="0 0 800 260" preserveAspectRatio="xMidYMax slice"><g transform="rotate(-5 400 260)"><rect x="-40" y="110" width="340" height="260" fill="#F4F3EF"/><rect x="300" y="70" width="260" height="300" fill="#DCDBD5"/><rect x="560" y="130" width="300" height="240" fill="#F4F3EF"/><g fill="#C9C8C1"><rect x="20" y="140" width="70" height="60"/><rect x="120" y="140" width="70" height="60"/><rect x="220" y="140" width="50" height="60"/><rect x="20" y="230" width="70" height="60"/><rect x="120" y="230" width="70" height="60"/><rect x="330" y="100" width="70" height="60"/><rect x="430" y="100" width="70" height="60"/><rect x="330" y="190" width="70" height="60"/><rect x="430" y="190" width="70" height="60"/><rect x="590" y="160" width="70" height="60"/><rect x="690" y="160" width="70" height="60"/></g></g></svg><div class="mono" style="color:#0B0D12;position:relative;z-index:4">Indeks 00 — Canlı tarif / çizim</div><div class="mono idx">01 / 06</div><div class="wm an"><span>mis</span><span class="d2">drawn</span></div><div class="mono wmsub">Anlat. Çiz. Yanlış anla.</div><div class="vt an">Anlat — Çiz — Yanlış anla</div><div class="hm"><span>Herkes aynı anda çizer ● Biri tarif eder, diğerleri çizer ● Silgi yok, geri al yok ● Yanlış anlamalar tuvalde kalır ● Herkes aynı anda çizer ● Biri tarif eder, diğerleri çizer ● Silgi yok, geri al yok ●</span></div></section><aside class="hs"><div class="pn"><div class="mono">01 — Takma ad</div><input id="nick" maxlength="14" placeholder="erenthepooh" value="${esc(me.n)}"></div><button class="cta" data-a="create"><span class="an">Oda kur</span><i class="arw"></i></button><div class="pn"><div class="mono">02 — Odaya katıl</div><input id="code" maxlength="5" placeholder="KOD" style="text-transform:uppercase;letter-spacing:.3em"><button class="btn bl ar" data-a="join" style="align-self:flex-start">Katıl</button><div class="mono" id="err" style="color:var(--bad)"></div></div></aside></div><section class="how"><div class="hw"><div class="mono">Nasıl oynanır</div><h2 style="font-size:40px;line-height:1;margin-top:6px">Anlat. Çiz. Yanlış anla.</h2><p>3–12 kişi, sesli sohbet, bir oda kodu. Herkes kendi kelimesini çizer, sonra sırayla biri anlatıcı olur. Anlatıcı sadece şekil, yön, konum, boyut ve renk söyler.</p></div><ol class="st4"><li><b class="an">01</b><span class="an">Çiz</span><p>Herkes aynı anda gizli kelimesini çizer, bitiren hazır verir.</p></li><li><b class="an">02</b><span class="an">Tarif et</span><p>Anlatıcı çizimini sadece şekil, yön ve renkle anlatır. İpucu verirse faul.</p></li><li><b class="an">03</b><span class="an">Anla</span><p>Çizerlerde silgi ve geri al yok. Hata tuvalde kalır.</p></li><li><b class="an">04</b><span class="an">İzle</span><p>Herkesin çizimi 4× hızla oynar, tahminler damga yer.</p></li></ol></section>`}
+async function connect(code,host){const n=($('#nick').value||'').trim().slice(0,14),er=$('#err');if(!n){er.textContent='Önce takma adını yaz';$('#nick').focus();return}me={n,j:Date.now()};room={code};er.textContent='Bağlanıyor…';
+ try{window.__misHost=host;const R=await window.claude.use('room');if(!R)throw 0;nr=await R.join('tarif-'+code.toLowerCase())}catch(e){nr=null;er.textContent='Bağlantı kurulamadı. Sayfayı Claude içinde, giriş yapmış halde aç.';return}
+ await nr.presence({n:me.n,j:me.j,h:host?1:null});joinedAt=now();G=lastG=null;seenQ=-1;nr.onPeers(()=>{if(ph=='lobby')lobby()});lobby()}
+function lobby(){ph='lobby';head('Lobi','01 / 06');const ps=[...peers()].sort((a,b)=>a.presence.j-b.presence.j),h=hostPeer(),isH=!!h?.sameTab,c=isH?cfg:(h?.presence.c||cfg);
+ const st=[['Referans',5,20,90],['Tarif',5,30,120],['Tahmin',5,10,40]].map(([l,s,a,b],k)=>`<div class="row"><span>${l}</span><span><button ${isH?'':'disabled'} data-s="${k}" data-d="-${s}" data-lo="${a}" data-hi="${b}">−</button> <b id="v${k}" class="an" style="font-size:22px;margin:0 8px">${c[k]} sn</b> <button ${isH?'':'disabled'} data-s="${k}" data-d="${s}" data-lo="${a}" data-hi="${b}">+</button></span></div>`).join('');
+ app.innerHTML=`<div class="vc"><div class="vct an">Oda<br>${room.code}</div><i class="vsq"></i><span class="mono vlab">Index 01 — Lobi</span></div><div class="lob2"><section class="pn"><div class="mono">01 — Oyuncular (${ps.length}/12)</div><ul>${ps.map((p,i)=>`<li class="pl"><span class="mono">0${i+1}</span><span>${esc(p.presence.n||'?')}${p.presence.h?'<span class="tag">kurucu</span>':''}${p.sameTab?'<span class="tag" style="background:var(--bl);color:#fff">sen</span>':''}</span><span class="mono"><i class="dot ok"></i>Hazır</span></li>`).join('')}</ul><div class="note">Arkadaşların bu sayfayı açıp kodu girsin. En az 2, en iyisi 3+ kişi.</div></section><aside class="pn"><div class="mono">02 — Süre ayarları${isH?'':' (kurucu belirler)'}</div>${st}<button class="btn gh" data-a="copy">Kodu kopyala</button> <button class="btn gh" data-a="home">Odadan çık</button><br>${isH?`<button class="btn bl ar" data-a="start" ${ps.length<2?'disabled':''}>Oyunu başlat</button>`:'<div class="mono" style="margin-top:12px">Kurucunun başlatması bekleniyor</div>'}</aside></div>`}
+function go(p,i,x={}){const q=Math.max(G?G.q:0,lastG?lastG.q:0)+1,g={...(G||{}),p,i,q,...x};G=lastG=g;seenQ=q;pres({g});enter()}
+function enter(){const g=G,id=myId();locked=false;tool={c:'k',w:4,er:false};pres({d:null,gs:null,v:null,f:null,r:null});
+ if(g.p=='lobby'){lobby();return}
+ if(!g.o||!g.o.includes(id)){ph='spec';head('Seyirci','--');app.innerHTML='<div class="pn"><div class="word an">Oyun sürüyor</div><div class="note">Sonraki oyunda katılırsın.</div></div>';return}
+ t0=now();ph=g.p;const n=g.o[g.i],isN=n==id;
+ if(ph=='ref'){myRef=[];myDraw={};myGuess={};cur=myRef;const w=word(id);head('Referans çizimi','02 / 06');
+  app.innerHTML=`<div class="two"><section><div class="mono">01 — Senin kelimen</div><div class="word an">${w.w}</div><span class="tag">${w.c}</span><canvas id="cv" class="cv" width="640" height="400" style="margin-top:10px"></canvas>${tl(true)}<button class="btn bl ar" data-a="ready" id="rb">Hazırım</button></section><aside class="pn"><div class="mono">02 — Durum</div><ul id="st"></ul><div class="note">Çizimi bitiren hazır verir; herkes hazırsa süre dolmadan tur başlar.</div></aside></div>`;mk()}
+ else if(ph=='tell'){head(`Tarif turu — ${g.nn[g.i]}`,`03 / 06 · Tur ${g.i+1}/${g.o.length}`);
+  if(isN){const dr=g.o.map((x,k)=>[x,k]).filter(a=>a[0]!=id);app.innerHTML=`<div class="two"><section><div class="mono">01 — Referansın (sadece sen görürsün)</div><div class="word an" style="font-size:48px">${word(id).w}</div><span class="tag">${word(id).c}</span><canvas id="cv" class="cv" width="640" height="400" style="margin-top:10px"></canvas><div class="note">Sadece şekil, yön, konum, boyut, renk tarif et. Ne işe yaradığını söylemek yasak!</div><button class="btn bl ar" data-a="endTell">Tarifi bitir</button></section><aside><div class="mono">02 — CCTV kameraları <span class="rec">● REC</span></div><div class="cams" style="margin-top:8px">${dr.map((a,j)=>`<div class="cam"><canvas class="cv" data-id="${a[0]}" width="640" height="400"></canvas><span class="tg mono">CAM-0${j+1} <span class="rec">● REC</span></span><div class="nm"><span>${esc(g.nn[a[1]])}</span></div></div>`).join('')}</div><div class="mono" style="margin-top:8px" id="fv"></div></aside></div>`;draw($('#cv'),myRef);$$('canvas[data-id]').forEach(c=>draw(c,[]))}
+  else{cur=[];const w=word(n);app.innerHTML=`<div class="two"><section><div class="mono">01 — Tuvalin · anlatıcı: ${esc(g.nn[g.i])}</div><div style="margin:6px 0"><span class="tag" style="margin:0;font-size:15px">Kategori: ${w.c}</span></div><canvas id="cv" class="cv" width="640" height="400"></canvas>${tl(false)}</section><aside class="pn"><div class="mono">02 — Kurallar</div><p style="margin:10px 0">Silgi ve geri al yok. Anlatıcı ipucu verirse faul düdüğünü çal; aktif çizerlerin yarısı basarsa tarif kesilir.</p><button class="btn bd" data-a="foul" style="width:100%;padding:18px;font-size:22px">Faul / İpucu verdi</button><div class="mono" style="margin-top:8px" id="fv"></div></aside></div>`;mk()}}
+ else if(ph=='guess'){locked=true;if(!isN)myDraw[g.i]=cur.slice();head(g.fl?'Faul! Tahmin aşaması':'Tahmin aşaması',`04 / 06 · Tur ${g.i+1}/${g.o.length}`);const w=word(n);
+  app.innerHTML=`<div class="two"><section><div class="mono">01 — ${isN?'Referansın':'Senin çizimin'}</div><div style="margin:6px 0"><span class="tag" style="margin:0;font-size:15px">Kategori: ${w.c}</span></div><canvas id="cv" class="cv" width="640" height="400"></canvas>${isN?'<div class="note">Çizerler tahmin ediyor…</div>':`<div style="display:flex;gap:8px;margin-top:12px"><input id="gi" placeholder="Gizli kelime ne?" autocomplete="off" maxlength="30"><button class="btn bl ar" data-a="send" id="sb">Gönder</button></div>`}</section><aside class="pn"><div class="mono">02 — Tahminler</div><ul id="st"></ul></aside></div>`;
+  draw($('#cv'),isN?myRef:myDraw[g.i]);$('#gi')?.addEventListener('keydown',e=>e.key=='Enter'&&acts.send())}
+ else if(ph=='rev'){rv={w:now(),built:false};head('Showroom reveal',`05 / 06 · Tur ${g.i+1}/${g.o.length}`);$('#tm').textContent='4×';app.innerHTML='<div class="mono">Çizimler toplanıyor…</div>';pres({v:[g.q,enc(isN?myRef:(myDraw[g.i]||[])),myGuess[g.i]||'']})}
+ else if(ph=='pod')podium()}
+function buildRev(){const g=G,i=g.i,n=g.o[i];rv.built=true;rv.s=now();const gv=id=>{const v=byId(id)?.presence.v;return v&&v[0]==g.q?v:null};
+ rv.ref=dec(gv(n)?.[1]);rv.items=g.o.map((id,k)=>({id,k})).filter(a=>a.id!=n).map(a=>{const v=gv(a.id);return{k:a.k,draw:dec(v?.[1]),guess:v?v[2]:'',ok:(g.rr[i]||'')[a.k]=='1'}});
+ app.innerHTML=`<div class="two" style="grid-template-columns:1fr 1.4fr"><section><div class="mono">0${i+1} — Anlatıcı: ${esc(g.nn[i])}${g.fr[i]=='1'?' · <span class="rec">faul −50</span>':''}</div><div class="word an">${word(n).w}</div><span class="tag">${word(n).c}</span><canvas id="cv" class="cv" width="640" height="400" style="margin-top:10px"></canvas><div class="mono" style="margin:6px 0 12px">Orijinal çizim</div><button class="btn gh" data-a="replay">Tekrar oynat</button> ${iAmHost()?`<button class="btn bl ar" data-a="next">${i+1<g.o.length?'Sonraki tur':'Podyum'}</button>`:'<span class="mono">Kurucu ilerletir</span>'}</section><aside><div class="mono">Çizerlerin süreci — 4× timelapse</div><div class="cams" style="margin-top:8px">${rv.items.map((it,j)=>`<div class="cam"><canvas class="cv" data-r="${j}" width="640" height="400"></canvas><span class="stamp ${it.ok?'y':'n'}">${it.ok?'Doğru':'Yanlış'}</span><div class="nm"><span>${esc(g.nn[it.k])}</span><span class="mono gs">“${esc(it.guess||'—')}”</span></div></div>`).join('')}</div></aside></div>`;draw($('#cv'),rv.ref)}
+function podium(){const g=G,o=g.o.map((id,k)=>({n:g.nn[k],s:g.s[k]})).sort((a,b)=>b.s-a.s),h=[260,200,150],bg=['var(--or)','var(--bl)','var(--ln)'];ph='pod';head('Final podyumu','06 / 06');
+ app.innerHTML=`<div class="mono">Sonuçlar</div><div class="pod">${[1,0,2].filter(i=>o[i]).map(i=>`<div style="height:${h[i]}px;background:${bg[i]};color:${i==0?'#0B0D12':'var(--ink)'}"><span class="an" style="font-size:60px;line-height:1">0${i+1}</span><span class="an" style="font-size:28px">${esc(o[i].n)}</span><span class="mono" style="color:inherit">${o[i].s} puan</span></div>`).join('')}</div><div class="pn" style="max-width:520px;margin:auto"><ul>${o.map((p,i)=>`<li class="pl"><span class="mono">0${i+1}</span><span>${esc(p.n)}</span><b class="an">${p.s}</b></li>`).join('')}</ul></div><div style="text-align:center;margin-top:20px">${iAmHost()?'<button class="btn bl ar" data-a="again">Lobiye dön</button>':'<span class="mono">Kurucu lobiye döndürür</span>'}</div>`}
+// puanlama (kurucu)
+function score(){const g=G,ni=g.i,n=g.o[ni],w=word(n).w,s=[...g.s];let c=0,str='';
+ g.o.forEach((id,k)=>{if(id==n){str+='-';return}const x=byId(id)?.presence.gs,ok=!!x&&x[0]==g.q&&isOk(x[1],w);if(ok){c++;s[k]+=100+Math.ceil(25*(1-Math.min(1,x[2]/(g.c[2]*1000))))}str+=ok?'1':'0'});
+ s[ni]+=g.fl?-50:50*c;const x={s,rr:[...g.rr,str],fr:g.fr+(g.fl?'1':'0'),fl:0};
+ ni+1<g.o.length?go('tell',ni+1,x):go('rev',0,x)}
+// eylemler
+const acts={
+ create(){connect([...Array(5)].map(()=>CH[Math.random()*CH.length|0]).join(''),true)},
+ join(){const c=($('#code').value||'').toUpperCase().replace(/[^A-Z0-9]/g,'');if(c.length!=5){$('#err').textContent='Kod 5 karakter olmalı';return}connect(c,false)},
+ copy(){try{navigator.clipboard.writeText(room.code)}catch(e){}},
+ home(){try{nr?.leave()}catch(e){}nr=null;G=lastG=null;seenQ=-1;home()},
+ start(){const ps=[...peers()].sort((a,b)=>a.presence.j-b.presence.j||(a.peer<b.peer?-1:1));if(ps.length<2)return;const wi=[...W.keys()].sort(()=>Math.random()-.5).slice(0,ps.length);go('ref',0,{c:[...cfg],o:ps.map(p=>p.peer),wi,nn:ps.map(p=>(p.presence.n||'?').slice(0,14)),s:ps.map(()=>0),rr:[],fr:'',fl:0})},
+ ready(){pres({r:G.q});const b=$('#rb');b.disabled=true;b.textContent='Diğerleri bekleniyor…'},
+ foul(){pres({f:G.q});$('#fv').textContent='Faul oyun verildi'},
+ endTell(){pres({r:G.q})},
+ send(){const i=$('#gi'),v=i.value.trim();if(!v||i.disabled)return;myGuess[G.i]=v;pres({gs:[G.q,v.slice(0,30),Math.round(now()-t0)]});i.disabled=$('#sb').disabled=true},
+ replay(){rv.s=now();$$('.stamp,.gs').forEach(x=>x.classList.remove('s'))},
+ next(){if(!iAmHost())return;G.i+1<G.o.length?go('rev',G.i+1):go('pod',0)},
+ again(){if(iAmHost())go('lobby',0)}};
+app.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+ if(d.c){tool.c=d.c;tool.er=false;sync()}if(d.w){tool.w=+d.w;sync()}if('er' in d){tool.er=!tool.er;sync()}
+ if('undo' in d){cur.pop();draw($('#cv'),cur)}
+ if(d.s){cfg[d.s]=Math.min(+d.hi,Math.max(+d.lo,cfg[d.s]+ +d.d));$('#v'+d.s).textContent=cfg[d.s]+' sn';pres({c:[...cfg]})}
+ if(d.a)acts[d.a]()});
+function claim(){const ps=[...peers()].sort((a,b)=>a.presence.j-b.presence.j||(a.peer<b.peer?-1:1));if(ps[0]?.sameTab)pres({h:1,g:lastG||null})}
+function tick(){
+ if(nr){const h=hostPeer(),g=h?.presence.g;
+  if(g&&g.q!==seenQ){G=lastG=g;seenQ=g.q;enter()}else if(g)lastG=g;
+  if(!h&&now()-joinedAt>4000)claim();
+  if(G&&ph!='lobby'&&ph!='home')run()}
+ requestAnimationFrame(tick)}
+function run(){const g=G,e=(now()-t0)/1000,host=iAmHost(),id=myId(),n=g.o?.[g.i],T=$('#tm');
+ if(ph=='ref'){T.textContent=mm(g.c[0]-e);list(g.o.map((x,k)=>{const r=byId(x)?.presence.r===g.q;return[g.nn[k],r,r?'Hazır':'Çiziyor']}));
+  if(host&&(g.o.every(x=>!byId(x)||byId(x).presence.r===g.q)||e>=g.c[0]))go('tell',0,{fl:0})}
+ else if(ph=='tell'){T.textContent=mm(g.c[1]-e);const dr=g.o.filter(x=>x!=n&&byId(x)),fo=dr.filter(x=>byId(x).presence.f===g.q).length;
+  if(n==id){$$('canvas[data-id]').forEach(c=>{const d=byId(c.dataset.id)?.presence.d;if(d&&d[0]==g.q&&c._s!==d[1]){c._s=d[1];draw(c,dec(d[1]))}});const f=$('#fv');if(f&&fo)f.textContent=`Faul oyları: ${fo}/${dr.length}`}
+  else if(dirty&&now()-lastPub>450){dirty=false;lastPub=now();pres({d:[g.q,enc(cur)]})}
+  if(host){if(dr.length&&fo>=Math.ceil(dr.length/2))go('guess',g.i,{fl:1});else if(!byId(n)||byId(n).presence.r===g.q||e>=g.c[1])go('guess',g.i,{fl:g.fl||0})}}
+ else if(ph=='guess'){T.textContent=mm(g.c[2]-e);const dr=g.o.map((x,k)=>[x,k]).filter(a=>a[0]!=n&&byId(a[0])),got=a=>byId(a[0]).presence.gs?.[0]==g.q;
+  list(dr.map(a=>[g.nn[a[1]],got(a),got(a)?'Gönderdi':'Düşünüyor']));if(host&&(dr.every(got)||e>=g.c[2]+1.5))score()}
+ else if(ph=='rev'){if(!rv.built){if(g.o.every(x=>!byId(x)||byId(x).presence.v?.[0]===g.q)||now()-rv.w>3500)buildRev()}
+  else{const Tm=(now()-rv.s)*4;$$('canvas[data-r]').forEach(c=>{const it=rv.items[+c.dataset.r];draw(c,it.draw,Tm);if(Tm>=Math.max(dur(it.draw),800)+400){const cam=c.parentNode;$('.stamp',cam).classList.add('s');$('.gs',cam).classList.add('s')}})}}}
+home();requestAnimationFrame(tick);
+</script></body></html>
